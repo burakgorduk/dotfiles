@@ -27,11 +27,17 @@ mkdir -p ~/.config/tmux/plugins/catppuccin
 git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.tmux/plugins/catppuccin/tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-cd ~/dotfiles
 rm ~/.config/lazygit/config.yml
-stow nvim
-stow lazygit
-stow tmux
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
+
+curl -sS https://starship.rs/install.sh | sh
+# Add eval "$(starship init bash)" to .bashrc
+
+sudo mkdir -p /etc/apt/keyrings
+wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
+sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+sudo apt update
+sudo apt install -y eza
